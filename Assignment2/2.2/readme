@@ -1,0 +1,18 @@
+# Assignment 2.2
+
+* The main script is run.py (prefer python3).
+* Checkhost script search out all the online nodes from the allhost files and store it in the hosts file.
+* Make sure to recomile the source using 'make' before executing it.
+* NEW_MPI_Bcast is implemented using Scater + AllGather(custom implemenation)
+
+* Working : First the data is distributed to all the nodes (scater) and then replicated to all other nodes (Allgather)
+* Allgather is implemented using simple Isend and Ireceive over the Ring Algorithm.
+
+* The command to execute the plot script from run.py is commented. (Uncomment if all the required libraries are present)
+* The program is generating 3 output files.
+* The plot file is generating 3 graphs, each containing 6 plots, 3 PPN (2,4,8) for both NEW_Bcast and OLD_Bcast.
+
+
+## Observation
+* As expected pre-implemented Bcast (OLD_Bcast) is giving comparatively higher bandwidth.
+* Every Bcast is giving more Bandwidth as the PPN increases since more processes are allowed to stay on the same node which increases the intra process communication which eventually increases the bandwidth

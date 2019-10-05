@@ -1,6 +1,6 @@
 import os
-import matplotlib.pyplot as plt
-import numpy as np
+# import matplotlib.pyplot as plt
+# import numpy as np
 
 
 if os.path.isfile('data.txt'):
