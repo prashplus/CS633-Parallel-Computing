@@ -15,7 +15,7 @@ int main(int argc, char** argv)
         MPI_Comm_size(MPI_COMM_WORLD, &world_size);
         MPI_Status status1;
         //timer
-        double stime= MPI_Wtime(),speed,time;
+        double stime= MPI_Wtime(),speed,time,ftime;
 
         //Dummy data
         double a[size];
@@ -62,11 +62,12 @@ int main(int argc, char** argv)
                         MPI_COMM_WORLD);
             }
         }
+        time= MPI_Wtime() - stime;
+        MPI_Reduce(&time, &ftime, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
         if(world_rank == 0)
             {
-            time= MPI_Wtime() - stime;
-            printf("Bandwidth is %lf \n",(size*0.0008*(world_size - 1))/time);
-            fprintf(fptr,"%lf\n",(size*0.0008*(world_size - 1))/time);
+            printf("Bandwidth is %lf \n",(size*0.0008*(world_size - 1))/ftime);
+            fprintf(fptr,"%lf\n",(size*0.0008*(world_size - 1))/ftime);
             fclose(fptr);
             }
 
@@ -80,7 +81,7 @@ int main(int argc, char** argv)
 
 
         ////Part 2
-        double stime2= MPI_Wtime(),speed2,time2;
+        double stime2= MPI_Wtime(),speed2,time2,ftime2;
 
         //Dummy data
         double buffer[size], buffer2[size];
@@ -122,11 +123,12 @@ int main(int argc, char** argv)
                     MPI_Wait(&request[world_rank-1], &status[world_rank-1]);
             }
         }
+        time2= MPI_Wtime() - stime2;
+        MPI_Reduce(&time2, &ftime2, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
         if(world_rank == 0)
             {
-            time2= MPI_Wtime() - stime2;
-            printf("Bandwidth is %lf with time %lf \n",(size*0.0008*(world_size - 1))/time2,time2);
-            fprintf(fptr,"%lf\n",(size*0.0008*(world_size - 1))/time2);
+            printf("Bandwidth is %lf with time %lf \n",(size*0.0008*(world_size - 1))/ftime2,ftime2);
+            fprintf(fptr,"%lf\n",(size*0.0008*(world_size - 1))/ftime2);
             fclose(fptr);
             }
         MPI_Finalize();
