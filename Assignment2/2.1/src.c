@@ -49,18 +49,19 @@ int main(int argc, char** argv)
                 fptr = fopen("data3.txt","a");
             }
         
-        
+        //return if Files not present
         if(fptr == NULL)
         {
             printf("Error!");   
             exit(1);             
         }
 
-
+        //1 to 1 mapping of all 30 nodes and all the send recieves
         for(i = 0;i < world_size ;i++)
             {
                 for (j = i;j < world_size;j++)
                     {
+                        //Diaganols
                         if(world_rank == i && i == j)
                             {
                                 stime = MPI_Wtime();
@@ -99,7 +100,7 @@ int main(int argc, char** argv)
                                 }
                     }
             }
-        
+        //Reduce to the max time by MPI_Reduce
         double mtime[world_size][world_size];
         for(i =0 ;i<world_size; i++)
         {

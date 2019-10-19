@@ -5,8 +5,10 @@ import threading
 with open('hosts') as f:
     lines = f.readlines()
     z = [line.split()[0] for line in lines]
+#Data sizes
 arr = [8192,65536,262144]
 
+# Data size 1
 def func1():
     for i in range(10):
         string='mpiexec -np 30 -ppn 1 -f hosts ./main.out '+str(arr[0]) + ' 1'
@@ -14,6 +16,7 @@ def func1():
         print(cmd.read())
         cmd.close()
 
+# Data size 2
 def func2():
     for i in range(10):
         string='mpiexec -np 30 -ppn 1 -f hosts ./main.out '+str(arr[1]) + ' 2'
@@ -21,6 +24,7 @@ def func2():
         print(cmd.read())
         cmd.close()
 
+# Data size 3
 def func3():
     for i in range(10):
         string='mpiexec -np 30 -ppn 1 -f hosts ./main.out '+str(arr[2]) + ' 3'

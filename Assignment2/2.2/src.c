@@ -15,6 +15,8 @@ void my_bcast(double* data, int count, MPI_Datatype datatype, int root, MPI_Comm
     MPI_Comm_size(communicator, &world_size);
     MPI_Request request[2];
     MPI_Status status[2];
+
+    //Initiallizing all the data buffers
     int recvRank,sendRank,i,j;
     int elements_per_proc = size/world_size;
     double *recvdata = (double*) malloc(elements_per_proc * sizeof(double)), *recvdata2 = (double*) malloc(size * sizeof(double));
@@ -25,7 +27,8 @@ void my_bcast(double* data, int count, MPI_Datatype datatype, int root, MPI_Comm
     MPI_Scatter(data, elements_per_proc, MPI_DOUBLE, recvdata, elements_per_proc, MPI_DOUBLE, 0, MPI_COMM_WORLD);
 
     MPI_Barrier(MPI_COMM_WORLD);
-
+    
+    //Code to check the data in process
     // printf("\nScatter Start \n");
     // for(i = 0;i<elements_per_proc;i++)
     //     {
@@ -98,6 +101,7 @@ int main(int argc, char** argv)
             {
                 fptr = fopen("data3.txt","a");
             }
+        //Exit if file not present
         if(fptr == NULL)
         {
             printf("Error!");   
@@ -117,6 +121,7 @@ int main(int argc, char** argv)
         //     data[i]=i;
 
 
+        //CHeck the number of processes
         if(world_size < 2)
         {
             fprintf(stderr, "World Size must be greate than 1 for %s\n", argv[0]);
@@ -140,10 +145,11 @@ int main(int argc, char** argv)
         MPI_Barrier(MPI_COMM_WORLD);
         mpi_bcast_time += MPI_Wtime();
         
+        //Reducing the best time
         MPI_Reduce(&mpi_bcast_time, &ftime1, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
         MPI_Reduce(&new_bcast_time, &ftime2, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
 
-
+        //Writing the time to the files
         if(world_rank == 0)
             {
             double b1 = (size*0.000008*(world_size - 1))/ftime1;
