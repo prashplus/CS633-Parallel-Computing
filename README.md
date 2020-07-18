@@ -4,6 +4,10 @@
 
 This repository will keep the track of the learnings from the IITK course CS633 Parallel Computing.
 
+## Teacher
+
+* **Preeti Malakar** - - [PMalakar](https://www.cse.iitk.ac.in/users/pmalakar/)
+
 ## Authors
 
 * **Prashant Piprotar** - - [Prash+](https://github.com/prashplus)
