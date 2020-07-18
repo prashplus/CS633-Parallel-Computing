@@ -1,4 +1,6 @@
 # [CS633] Parallel Computing
+[![forthebadge](https://forthebadge.com/images/badges/made-with-c.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](https://forthebadge.com)
 
 This repository will keep the track of the learnings from the IITK course CS633 Parallel Computing.
 
